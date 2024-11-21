@@ -30,7 +30,7 @@ public class MenuController {
 
     //   @GetMapping("/menus")
     @GetMapping
-    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false) String menuCategory) {
+    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false, defaultValue = "Makanan") String menuCategory) {
         System.out.println("name: " + menuName + " price: " + price + " menuCategory: " + menuCategory);
         List<MenuResponse> allMenu = menuService.getAll(menuName, price, menuCategory);
         return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, allMenu);

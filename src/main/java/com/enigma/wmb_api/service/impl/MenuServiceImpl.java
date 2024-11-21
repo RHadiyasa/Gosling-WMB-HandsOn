@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuResponse createMenu(MenuRequest menuRequest) {
-        Menu menu = Menu.builder().name(menuRequest.getName()).price(menuRequest.getPrice()).category(MenuCategory.FOOD).build();
+        Menu menu = Menu.builder().name(menuRequest.getName()).price(menuRequest.getPrice()).category(MenuCategory.fromValue(menuRequest.getCategory())).build();
         menuRepository.saveAndFlush(menu);
         return toMenuResponse(menu);
     }
