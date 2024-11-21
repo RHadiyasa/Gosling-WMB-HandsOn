@@ -45,9 +45,17 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuResponse> getAll() {
+    public List<MenuResponse> getAll(String name, Long price, String menuCategory) {
         List<MenuResponse> menuResponses = new ArrayList<>();
-        menuRepository.findAll().forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+        if (name != null && price != null) {
+            menuRepository.findByNameIgnoreCaseAndPrice(name, price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+        } else if (name != null) {
+            menuRepository.findByNameIgnoreCase(name).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+        } else if (price != null) {
+            menuRepository.findByPrice(price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+        } else {
+            menuRepository.findAll().forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+        }
         return menuResponses;
     }
 
@@ -58,10 +66,10 @@ public class MenuServiceImpl implements MenuService {
         currentMenu.setPrice(menuRequest.getPrice());
 //        currentMenu.setCategory(MenuCategory.valueOf(menuRequest.getCategory()));
 
-        currentMenu.setCategory(MenuCategory.FOOD);
-//        currentMenu.setCategory(MenuCategory.fromValue(menuRequest.getCategory()));
+//        currentMenu.setCategory(MenuCategory.FOOD);
+        currentMenu.setCategory(MenuCategory.fromValue(menuRequest.getCategory()));
         menuRepository.save(currentMenu);
-        return toMenuResponse(currentMenu);
+        return MenuResponse.menuEntityToMenuResponse(currentMenu); // alternative dari toMenuResponse, dan bagusnya itu di setiap DTO atau di Mapper Util (karena ya biar service focus pada core business logicnya)
     }
 
     @Override
@@ -70,6 +78,7 @@ public class MenuServiceImpl implements MenuService {
         menuRepository.delete(menu);
     }
 
+    // sebagai Mapper dari Menu Entity menjadi MenuResponse DTO
     private MenuResponse toMenuResponse(Menu menu) {
         MenuResponse menuResponse = new MenuResponse();
         menuResponse.setName(menu.getName());
