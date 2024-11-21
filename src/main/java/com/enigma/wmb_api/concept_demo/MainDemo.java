@@ -1,10 +1,15 @@
 package com.enigma.wmb_api.concept_demo;
 
+import com.enigma.wmb_api.entity.Menu;
+import com.enigma.wmb_api.repository.MenuRepository;
+import  org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public class MainDemo {
+    MenuRepository menuRepository;
+
     public static void main(String[] args) {
         SingletonDesignPatternDemo instance1 = SingletonDesignPatternDemo.getInstance();
         SingletonDesignPatternDemo instance2 = SingletonDesignPatternDemo.getInstance();
@@ -36,6 +41,18 @@ public class MainDemo {
         System.out.println(parsedSort.toString());
         Sort parsedSort2 = parseSortFromQueryParam("name");
         System.out.println(parsedSort2.toString());
+
+//        Page<Menu> currentPage = menuRepository.findAll(pageable);
+
+        // Page<Menu> currentPage adalah halaman hasil dari findAll dengan pageable tersebut
+
+//        System.out.println(currentPage.getTotalPages()); // jadi punya informasi tentang jumlah/total halaman
+//        System.out.println(currentPage.getNumber()); /// sekarang halaman keberapa
+
+
+
+        Page<String> page = (Page<String>) new Object();
+        System.out.println(page.getTotalPages()); // jadi punya informasi tentang jumlah/total halaman
     }
 
     public static Sort parseSortFromQueryParam(String sortQueryParam) {
