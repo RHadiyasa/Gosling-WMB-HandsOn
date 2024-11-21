@@ -10,7 +10,7 @@ public interface MenuService {
     MenuResponse createMenu(MenuRequest menuRequest);
     MenuResponse getMenuById(String id);
     Menu getOne(String id);
-    List<MenuResponse> getAll();
+    List<MenuResponse> getAll(String name, Long Price, String menuCategory);
     MenuResponse updateMenu(String id, MenuRequest menuRequest);
     void deleteMenu(String id);
 }

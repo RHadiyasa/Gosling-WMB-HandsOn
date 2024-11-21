@@ -1,6 +1,7 @@
 package com.enigma.wmb_api.controller;
 
 import com.enigma.wmb_api.constant.Constant;
+import com.enigma.wmb_api.constant.MenuCategory;
 import com.enigma.wmb_api.dto.MenuRequest;
 import com.enigma.wmb_api.dto.MenuResponse;
 import com.enigma.wmb_api.service.MenuDemoService;
@@ -30,8 +31,9 @@ public class MenuController {
 
     //   @GetMapping("/menus")
     @GetMapping
-    public ResponseEntity<?>  getAllMenu() {
-        List<MenuResponse> allMenu = menuService.getAll();
+    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false) String menuCategory) {
+        System.out.println("name: " + menuName + " price: " + price + " menuCategory: " + menuCategory);
+        List<MenuResponse> allMenu = menuService.getAll(menuName, price, menuCategory);
         return ResponseUtil.buildResponse(HttpStatus.OK, "Successfully get all menu", allMenu);
     }
 
