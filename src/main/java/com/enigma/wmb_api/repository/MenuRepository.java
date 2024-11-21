@@ -4,6 +4,7 @@ import com.enigma.wmb_api.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 /* MenuRepository extends ke JpaRepository bertujuannya agar nanti implementasinya tergenerate
 secara otomatis oleh Spring Data JPA, sehingga kita bisa menggunakan method-method yang telah
@@ -12,7 +13,7 @@ dan secara otomatis nanti Objek/instance MenuRepository ini akan bisa di pakai o
 yang membutuhkan
 MenuRepository akan secara otomatis dibuat sebagai Bean (jadi bisa dipakai oleh semua objek/instance class lain)
  */
-public interface MenuRepository extends JpaRepository<Menu, String> {
+public interface MenuRepository extends JpaRepository<Menu, UUID> {
     List<Menu> findByNameIgnoreCase(String name); // JPA query methods
     // https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
     List<Menu> findByPrice(double price);

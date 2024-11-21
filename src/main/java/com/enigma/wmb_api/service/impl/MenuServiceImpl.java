@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 //@AllArgsConstructor
 @Service
@@ -37,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu getOne(String id) {
-        Optional<Menu> menu = menuRepository.findById(id);
+        Optional<Menu> menu = menuRepository.findById(UUID.fromString(id));
         if (menu.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu with id" + id + " not found");
         }
@@ -62,6 +63,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuResponse updateMenu(String id, MenuRequest menuRequest) {
         Menu currentMenu = getOne(id);
+        currentMenu.setId(UUID.fromString(id));
         currentMenu.setName(menuRequest.getName());
         currentMenu.setPrice(menuRequest.getPrice());
 //        currentMenu.setCategory(MenuCategory.valueOf(menuRequest.getCategory()));
@@ -81,6 +83,7 @@ public class MenuServiceImpl implements MenuService {
     // sebagai Mapper dari Menu Entity menjadi MenuResponse DTO
     private MenuResponse toMenuResponse(Menu menu) {
         MenuResponse menuResponse = new MenuResponse();
+        menuResponse.setId(String.valueOf(menu.getId()));
         menuResponse.setName(menu.getName());
         menuResponse.setPrice(menu.getPrice());
         menuResponse.setCategory(menu.getCategory());

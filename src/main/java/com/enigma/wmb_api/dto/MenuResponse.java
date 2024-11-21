@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class MenuResponse {
+    private String id;
     private String name;
     private Long price;
     private MenuCategory category;
