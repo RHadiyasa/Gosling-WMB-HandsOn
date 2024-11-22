@@ -46,7 +46,7 @@ public class MenuController {
             ) {
             System.out.println("page: " + page + " size: " + size + " sort: " + sort);
         Page<MenuResponse> menuPage = menuService.getAll(page, size, sort);
-        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, menuPage);
+        return ResponseUtil.buildPageResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, menuPage);
     }
 
     //   @PutMapping("/menus")

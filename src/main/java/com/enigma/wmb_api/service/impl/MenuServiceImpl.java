@@ -75,6 +75,7 @@ public class MenuServiceImpl implements MenuService {
          * jumlah data per halaman (pageSize)
          * informasi urutannya/pengurutan (sort) ini optional untuk sorting
          */
+        // intinya ada di Pageable ini dan Page<Menu>, kalau mau diurutkan berarti  dan Sort  juga
         Pageable menuPageable = PageRequest.of((page - 1), size, SortUtil.parseSortFromQueryParam(sort));
         Page<Menu> menusPage = menuRepository.findAll(menuPageable);
         return menusPage.map(menu -> toMenuResponse(menu));
