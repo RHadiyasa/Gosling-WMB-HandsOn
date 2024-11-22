@@ -1,6 +1,8 @@
 package com.enigma.wmb_api.repository;
 
 import com.enigma.wmb_api.entity.Menu;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -18,4 +20,5 @@ public interface MenuRepository extends JpaRepository<Menu, UUID> {
     // https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
     List<Menu> findByPrice(double price);
     List<Menu> findByNameIgnoreCaseAndPrice(String name, double price);
+    Page<Menu> findByNameIgnoreCaseAndPrice(Pageable page, String name, double price);
 }

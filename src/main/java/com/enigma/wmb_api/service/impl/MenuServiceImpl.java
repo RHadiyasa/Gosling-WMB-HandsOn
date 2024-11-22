@@ -6,8 +6,13 @@ import com.enigma.wmb_api.dto.MenuResponse;
 import com.enigma.wmb_api.entity.Menu;
 import com.enigma.wmb_api.repository.MenuRepository;
 import com.enigma.wmb_api.service.MenuService;
+import com.enigma.wmb_api.util.SortUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,19 +50,34 @@ public class MenuServiceImpl implements MenuService {
         return menu.get();
     }
 
+//    @Override
+//    public List<MenuResponse> getAll(Integer name, Long price, String menuCategory) {
+//        List<MenuResponse> menuResponses = new ArrayList<>();
+//        if (name != null && price != null) {
+//            menuRepository.findByNameIgnoreCaseAndPrice(name, price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+//        } else if (name != null) {
+//            menuRepository.findByNameIgnoreCase(name).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+//        } else if (price != null) {
+//            menuRepository.findByPrice(price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+//        } else {
+//            menuRepository.findAll().forEach(menu -> menuResponses.add(toMenuResponse(menu)));
+//        }
+//        return menuResponses;
+//    }
+
     @Override
-    public List<MenuResponse> getAll(String name, Long price, String menuCategory) {
-        List<MenuResponse> menuResponses = new ArrayList<>();
-        if (name != null && price != null) {
-            menuRepository.findByNameIgnoreCaseAndPrice(name, price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
-        } else if (name != null) {
-            menuRepository.findByNameIgnoreCase(name).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
-        } else if (price != null) {
-            menuRepository.findByPrice(price).forEach(menu -> menuResponses.add(toMenuResponse(menu)));
-        } else {
-            menuRepository.findAll().forEach(menu -> menuResponses.add(toMenuResponse(menu)));
-        }
-        return menuResponses;
+    public Page<MenuResponse> getAll(Integer page, Integer size, String sort) {
+        // page - 1 karena page di jpa itu seperti array index mulai dari 0
+        /**
+         * Pageable adalah interface yang berfungsi sebagai penampung atau pembungkus informasi pagination yang ingin ambil datanya misal
+         *
+         * index/nomor halaman (pageNumber) dimulai dari 0 seperti index array/list
+         * jumlah data per halaman (pageSize)
+         * informasi urutannya/pengurutan (sort) ini optional untuk sorting
+         */
+        Pageable menuPageable = PageRequest.of((page - 1), size, SortUtil.parseSortFromQueryParam(sort));
+        Page<Menu> menusPage = menuRepository.findAll(menuPageable);
+        return menusPage.map(menu -> toMenuResponse(menu));
     }
 
     @Override

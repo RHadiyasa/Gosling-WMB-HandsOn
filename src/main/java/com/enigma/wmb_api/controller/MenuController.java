@@ -8,6 +8,7 @@ import com.enigma.wmb_api.service.MenuDemoService;
 import com.enigma.wmb_api.service.MenuService;
 import com.enigma.wmb_api.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,24 @@ public class MenuController {
         return ResponseUtil.buildResponse(HttpStatus.CREATED, Constant.SUCCESS_CREATE_MENU, createdMenu);
     }
 
+//    @GetMapping
+//    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false, defaultValue = "Makanan") String menuCategory) {
+//            System.out.println("name: " + menuName + " price: " + price + " menuCategory: " + menuCategory);
+//        List<MenuResponse> allMenu = menuService.getAll(menuName, price, menuCategory);
+//        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, allMenu);
+//    }
+
     //   @GetMapping("/menus")
     @GetMapping
-    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false, defaultValue = "Makanan") String menuCategory) {
-        System.out.println("name: " + menuName + " price: " + price + " menuCategory: " + menuCategory);
-        List<MenuResponse> allMenu = menuService.getAll(menuName, price, menuCategory);
-        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, allMenu);
+//    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false, defaultValue = "Makanan") String menuCategory) {
+    public ResponseEntity<?>  getAllMenu(
+            @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
+            @RequestParam(name = "sort", required = false) String sort
+            ) {
+            System.out.println("page: " + page + " size: " + size + " sort: " + sort);
+        Page<MenuResponse> menuPage = menuService.getAll(page, size, sort);
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, menuPage);
     }
 
     //   @PutMapping("/menus")
