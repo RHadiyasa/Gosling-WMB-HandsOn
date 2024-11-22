@@ -44,6 +44,8 @@ public class MenuController {
     public ResponseEntity<?>  getAllMenu(
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "category", required = false) String category,
+            @RequestParam(name = "minPrice", required = false) Long minPrice,
+            @RequestParam(name = "maxPrice", required = false) Long maxPrice,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
             @RequestParam(name = "sort", required = false) String sort
@@ -51,6 +53,8 @@ public class MenuController {
         SearchMenuRequest searchMenuRequest = SearchMenuRequest.builder()
                 .name(name)
                 .category(category)
+                .minPrice(minPrice)
+                .maxPrice(maxPrice)
                 .page(page)
                 .size(size)
                 .sort(sort)

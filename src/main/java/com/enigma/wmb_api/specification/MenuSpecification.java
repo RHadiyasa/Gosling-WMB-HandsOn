@@ -32,8 +32,21 @@ public class MenuSpecification {
                               cb.equal(root.get("category"),
                                       MenuCategory.fromValue(searchMenuRequest.getCategory()))); // ignoreCase
                   }
+                  Long minPrice = searchMenuRequest.getMinPrice();
+                  Long maxPrice = searchMenuRequest.getMaxPrice();
+                  if (minPrice != null && maxPrice != null) {
+                      Predicate minMaxPredicate = cb.between(root.get("price"), minPrice, maxPrice);
+                      predicates.add(minMaxPredicate);
+                  } else if (minPrice != null) {
+                      Predicate minPredicate = cb.greaterThanOrEqualTo(root.get("price"), minPrice);
+                      predicates.add(minPredicate);
+                  } else if (maxPrice != null) {
+                      Predicate maxPredicate = cb.lessThanOrEqualTo(root.get("price"), maxPrice);
+                      predicates.add(maxPredicate);
+                  }
 
-                  if (predicates.isEmpty()) return cb.conjunction();
+
+              if (predicates.isEmpty()) return cb.conjunction();
 
                   // root criteria builder
                   return cb.and(predicates.toArray(new Predicate[predicates.size()]));

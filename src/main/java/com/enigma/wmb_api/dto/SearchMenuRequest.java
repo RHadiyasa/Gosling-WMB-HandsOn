@@ -8,4 +8,6 @@ import lombok.experimental.SuperBuilder;
 public class SearchMenuRequest extends PagingRequest {
     private String name;
     private String category;
+    private Long minPrice;
+    private Long maxPrice;
 }
