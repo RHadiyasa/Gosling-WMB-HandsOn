@@ -1,7 +1,7 @@
 package com.enigma.wmb_api.util;
 
-import com.enigma.wmb_api.dto.CommonResponse;
-import com.enigma.wmb_api.dto.PagingResponse;
+import com.enigma.wmb_api.dto.response.CommonResponse;
+import com.enigma.wmb_api.dto.response.PagingResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

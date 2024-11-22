@@ -1,6 +1,5 @@
-package com.enigma.wmb_api.dto;
+package com.enigma.wmb_api.dto.request;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

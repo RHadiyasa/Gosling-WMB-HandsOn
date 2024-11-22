@@ -1,12 +1,9 @@
 package com.enigma.wmb_api.controller;
 
 import com.enigma.wmb_api.constant.Constant;
-import com.enigma.wmb_api.constant.MenuCategory;
-import com.enigma.wmb_api.dto.MenuRequest;
-import com.enigma.wmb_api.dto.MenuResponse;
-import com.enigma.wmb_api.dto.PagingRequest;
-import com.enigma.wmb_api.dto.SearchMenuRequest;
-import com.enigma.wmb_api.service.MenuDemoService;
+import com.enigma.wmb_api.dto.request.MenuRequest;
+import com.enigma.wmb_api.dto.response.MenuResponse;
+import com.enigma.wmb_api.dto.request.SearchMenuRequest;
 import com.enigma.wmb_api.service.MenuService;
 import com.enigma.wmb_api.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 //@RequestMapping("/menus")
 @RequestMapping(Constant.MENU_API)
@@ -63,12 +58,25 @@ public class MenuController {
         return ResponseUtil.buildPageResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, menuPage);
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getMenu(@PathVariable String id) {
+        MenuResponse singleMenu = menuService.getMenuById(id);
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_UPDATE_MENU, singleMenu);
+    }
+
+//    @GetMapping(path = "/{id}/name")
+//    public ResponseEntity<?> getMenuName(@PathVariable String id) {
+//        MenuResponse singleMenu = menuService.getMenuById(id);
+//        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_UPDATE_MENU, singleMenu.getName());
+//    }
+
     //   @PutMapping("/menus")
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateMenu(@PathVariable String id, @RequestBody MenuRequest request) {
         MenuResponse updatedMenu = menuService.updateMenu(id, request);
         return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_UPDATE_MENU, updatedMenu);
     }
+
 
     //   @DeleteMapping("/menus")
     @DeleteMapping(path = "/{id}")

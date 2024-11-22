@@ -1,4 +1,4 @@
-package com.enigma.wmb_api.dto;
+package com.enigma.wmb_api.dto.response;
 
 import com.enigma.wmb_api.constant.MenuCategory;
 import com.enigma.wmb_api.entity.Menu;

@@ -1,15 +1,13 @@
 package com.enigma.wmb_api.specification;
 
 import com.enigma.wmb_api.constant.MenuCategory;
-import com.enigma.wmb_api.dto.MenuRequest;
-import com.enigma.wmb_api.dto.SearchMenuRequest;
+import com.enigma.wmb_api.dto.request.SearchMenuRequest;
 import com.enigma.wmb_api.entity.Menu;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

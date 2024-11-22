@@ -1,4 +1,4 @@
-package com.enigma.wmb_api.dto;
+package com.enigma.wmb_api.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

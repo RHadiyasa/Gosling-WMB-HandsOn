@@ -1,4 +1,4 @@
-package com.enigma.wmb_api.dto;
+package com.enigma.wmb_api.dto.request;
 
 import lombok.*;
 
