@@ -3,9 +3,11 @@ package com.enigma.wmb_api.service.impl;
 import com.enigma.wmb_api.constant.MenuCategory;
 import com.enigma.wmb_api.dto.MenuRequest;
 import com.enigma.wmb_api.dto.MenuResponse;
+import com.enigma.wmb_api.dto.SearchMenuRequest;
 import com.enigma.wmb_api.entity.Menu;
 import com.enigma.wmb_api.repository.MenuRepository;
 import com.enigma.wmb_api.service.MenuService;
+import com.enigma.wmb_api.specification.MenuSpecification;
 import com.enigma.wmb_api.util.SortUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -65,8 +68,8 @@ public class MenuServiceImpl implements MenuService {
 //        return menuResponses;
 //    }
 
-    @Override
-    public Page<MenuResponse> getAll(Integer page, Integer size, String sort) {
+//    @Override
+//    public Page<MenuResponse> getAll(Integer page, Integer size, String sort) {
         // page - 1 karena page di jpa itu seperti array index mulai dari 0
         /**
          * Pageable adalah interface yang berfungsi sebagai penampung atau pembungkus informasi pagination yang ingin ambil datanya misal
@@ -76,8 +79,21 @@ public class MenuServiceImpl implements MenuService {
          * informasi urutannya/pengurutan (sort) ini optional untuk sorting
          */
         // intinya ada di Pageable ini dan Page<Menu>, kalau mau diurutkan berarti  dan Sort  juga
-        Pageable menuPageable = PageRequest.of((page - 1), size, SortUtil.parseSortFromQueryParam(sort));
-        Page<Menu> menusPage = menuRepository.findAll(menuPageable);
+//        Pageable menuPageable = PageRequest.of((page - 1), size, SortUtil.parseSortFromQueryParam(sort));
+//        Page<Menu> menusPage = menuRepository.findAll(menuPageable);
+//        return menusPage.map(menu -> toMenuResponse(menu));
+//    }
+
+
+    @Override
+    public Page<MenuResponse> getAll(SearchMenuRequest searchMenuRequest) {
+        Pageable menuPageable = PageRequest.of(
+                (searchMenuRequest.getPage() - 1),
+                searchMenuRequest.getSize(),
+                SortUtil.parseSortFromQueryParam(searchMenuRequest.getSort())
+        );
+        Specification<Menu> menuSpecification = MenuSpecification.getSpecification(searchMenuRequest);
+        Page<Menu> menusPage = menuRepository.findAll(menuSpecification, menuPageable);
         return menusPage.map(menu -> toMenuResponse(menu));
     }
 

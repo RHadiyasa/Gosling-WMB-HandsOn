@@ -2,6 +2,7 @@ package com.enigma.wmb_api.service;
 
 import com.enigma.wmb_api.dto.MenuRequest;
 import com.enigma.wmb_api.dto.MenuResponse;
+import com.enigma.wmb_api.dto.SearchMenuRequest;
 import com.enigma.wmb_api.entity.Menu;
 import org.springframework.data.domain.Page;
 
@@ -12,7 +13,7 @@ public interface MenuService {
     MenuResponse getMenuById(String id);
     Menu getOne(String id);
 //    List<MenuResponse> getAll(String name, Long Price, String menuCategory);
-    Page<MenuResponse> getAll(Integer page, Integer size, String sort);
+    Page<MenuResponse> getAll(SearchMenuRequest searchMenuRequest);
     MenuResponse updateMenu(String id, MenuRequest menuRequest);
     void deleteMenu(String id);
 }

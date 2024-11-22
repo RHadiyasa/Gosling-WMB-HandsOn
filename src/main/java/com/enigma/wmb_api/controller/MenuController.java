@@ -4,6 +4,8 @@ import com.enigma.wmb_api.constant.Constant;
 import com.enigma.wmb_api.constant.MenuCategory;
 import com.enigma.wmb_api.dto.MenuRequest;
 import com.enigma.wmb_api.dto.MenuResponse;
+import com.enigma.wmb_api.dto.PagingRequest;
+import com.enigma.wmb_api.dto.SearchMenuRequest;
 import com.enigma.wmb_api.service.MenuDemoService;
 import com.enigma.wmb_api.service.MenuService;
 import com.enigma.wmb_api.util.ResponseUtil;
@@ -40,12 +42,20 @@ public class MenuController {
     @GetMapping
 //    public ResponseEntity<?>  getAllMenu(@RequestParam(name = "name", required = false) String menuName, @RequestParam(required = false) Long price, @RequestParam(required = false, defaultValue = "Makanan") String menuCategory) {
     public ResponseEntity<?>  getAllMenu(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
             @RequestParam(name = "sort", required = false) String sort
             ) {
-            System.out.println("page: " + page + " size: " + size + " sort: " + sort);
-        Page<MenuResponse> menuPage = menuService.getAll(page, size, sort);
+        SearchMenuRequest searchMenuRequest = SearchMenuRequest.builder()
+                .name(name)
+                .category(category)
+                .page(page)
+                .size(size)
+                .sort(sort)
+                .build();
+        Page<MenuResponse> menuPage = menuService.getAll(searchMenuRequest);
         return ResponseUtil.buildPageResponse(HttpStatus.OK, Constant.SUCCESS_GET_ALL_MENU, menuPage);
     }
 
