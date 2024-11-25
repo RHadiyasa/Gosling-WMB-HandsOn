@@ -36,4 +36,7 @@ public class OrderDetails extends BaseEntity {
 
     @Column(name = "price_snapshot", nullable = false)
     private Long priceSnapshot;
+
+    @Column(name = "total_price", nullable = false)
+    private Long totalPrice;
 }

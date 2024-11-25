@@ -13,5 +13,6 @@ public interface MenuService {
 //    List<MenuResponse> getAll(String name, Long Price, String menuCategory);
     Page<MenuResponse> getAll(SearchMenuRequest searchMenuRequest);
     MenuResponse updateMenu(String id, MenuRequest menuRequest);
+    Menu updateOne(Menu menu);
     void deleteMenu(String id);
 }

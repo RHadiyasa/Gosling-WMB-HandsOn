@@ -31,6 +31,8 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    // orphanRemoval -> secara otomatis menghapus entitas anak (child entity) yang tidak
+    // lagi memiliki hubungan dengan entitas induknya (parent entity).
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetails> orderDetails;
 

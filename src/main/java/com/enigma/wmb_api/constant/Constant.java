@@ -4,6 +4,7 @@ public class Constant {
     public static final String MENU_API = "api/v1/menus";
     public static final String AUTH_API = "api/v1/auth";
     public static final String CUSTOMER_API = "api/v1/customers";
+    public static final String ORDER_API = "api/v1/orders";
     public static final String CART_USER_API = "api/v1/carts/user";
     public static final String CART_ITEM_API = "api/v1/carts/items";
 
