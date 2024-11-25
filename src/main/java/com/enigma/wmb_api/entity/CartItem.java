@@ -34,7 +34,4 @@ public class CartItem extends BaseEntity {
 
     @Column(nullable = false)
     private Integer quantity;
-
-    @Column(name = "price_snapshot", nullable = false)
-    private Long priceSnapshot;
 }

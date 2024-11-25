@@ -41,6 +41,7 @@ public class MenuController {
             @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "minPrice", required = false) Long minPrice,
             @RequestParam(name = "maxPrice", required = false) Long maxPrice,
+            @RequestParam(name = "isReady", required = false) Boolean isReady,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "name") String sort
@@ -50,6 +51,7 @@ public class MenuController {
                 .category(category)
                 .minPrice(minPrice)
                 .maxPrice(maxPrice)
+                .isReady(isReady)
                 .page(page)
                 .size(size)
                 .sort(sort)

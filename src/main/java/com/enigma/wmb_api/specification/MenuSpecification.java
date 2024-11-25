@@ -24,6 +24,14 @@ public class MenuSpecification {
                                     "%" + searchMenuRequest.getName().toLowerCase() + "%")); // ignoreCase
                 }
 
+                  if (searchMenuRequest.getIsReady()) {
+                      predicates.add(
+                              cb.equal(root.get("isAvailable"),
+                                      true));
+                      predicates.add(
+                              cb.greaterThan(root.get("stock"), 0));
+                  }
+
                   if (searchMenuRequest.getCategory() != null) {
     //                    predicates.add(cb.equal(root.get("name"), searchMenuRequest.getName()));
                       predicates.add(

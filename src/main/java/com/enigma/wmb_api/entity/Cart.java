@@ -7,10 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.List;
 import java.util.UUID;
 
+@SQLDelete(sql = ("UPDATE " + Constant.CART_TABLE + " SET is_active = false WHERE id=?"))
+@Where(clause = "is_active=true")
 @Entity
 @Table(name = Constant.CART_TABLE)
 @Getter
@@ -29,7 +33,7 @@ public class Cart extends BaseEntity {
     private User user;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    private Boolean isActive = Boolean.TRUE;
 
     @Column(name = "total_quantity", nullable = false)
     private Integer totalQuantity;

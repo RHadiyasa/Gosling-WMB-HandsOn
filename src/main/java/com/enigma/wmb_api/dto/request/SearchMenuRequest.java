@@ -10,4 +10,5 @@ public class SearchMenuRequest extends PagingRequest {
     private String category;
     private Long minPrice;
     private Long maxPrice;
+    private Boolean isReady;
 }
