@@ -56,7 +56,7 @@ public class MainDemo {
     }
 
     public static Sort parseSortFromQueryParam(String sortQueryParam) {
-        if (sortQueryParam.startsWith("-")) {
+        if (sortQueryParam != null && sortQueryParam.startsWith("-")) {
             System.out.println("sortQueryParam.substring(1)" + sortQueryParam.substring(1));
             return Sort.by(Sort.Direction.DESC, sortQueryParam.substring(1));
         }
