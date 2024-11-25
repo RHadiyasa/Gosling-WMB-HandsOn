@@ -1,8 +1,8 @@
 package com.enigma.wmb_api.constant;
 
 public enum MenuCategory {
-    FOOD("Makanan"),
-    BEVERAGE("Minuman");
+    FOOD("MAKANAN"),
+    BEVERAGE("MINUMAN");
 
     private String value;
 

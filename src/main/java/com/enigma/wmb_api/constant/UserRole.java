@@ -1,8 +1,8 @@
 package com.enigma.wmb_api.constant;
 
 public enum UserRole {
-    CUSTOMER("Customer"),
-    STAFF("Staff");
+    CUSTOMER("PELANGGAN"),
+    STAFF("KARYAWAN");
 
 
     private String value;
