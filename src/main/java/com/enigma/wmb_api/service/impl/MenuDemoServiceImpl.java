@@ -9,6 +9,6 @@ import java.util.UUID;
 public class MenuDemoServiceImpl implements MenuDemoService {
     @Override
     public Menu getSomeFooodMenu() {
-        return new Menu(new UUID(5, 10), "Bakso", 15000L, MenuCategory.FOOD);
+        return new Menu(new UUID(5, 10), "Bakso", 15000L,10, true, MenuCategory.FOOD);
     }
 }

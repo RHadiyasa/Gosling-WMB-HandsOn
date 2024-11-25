@@ -31,9 +31,13 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(name = "price_snapshot", nullable = false)
     private Long priceSnapshot;
 
     @Column(nullable = false)
     private Integer quantity;
+
 }
