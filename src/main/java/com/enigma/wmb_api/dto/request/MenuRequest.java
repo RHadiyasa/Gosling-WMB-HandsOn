@@ -10,5 +10,6 @@ import lombok.*;
 public class MenuRequest {
     private String name;
     private Long price;
-    private String Category;
+    private String category;
+    private Integer stock;
 }

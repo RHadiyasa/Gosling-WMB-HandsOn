@@ -13,13 +13,15 @@ public class MenuResponse {
     private String id;
     private String name;
     private Long price;
-    private MenuCategory category;
+    private Integer stock;
+    private String category;
 
-    public static MenuResponse menuEntityToMenuResponse(Menu menu) {
-          return MenuResponse.builder()
-                  .name(menu.getName())
-                  .price(menu.getPrice())
-                  .category(menu.getCategory())
-                  .build();
-    }
+//    public static MenuResponse menuEntityToMenuResponse(Menu menu) {
+//          return MenuResponse.builder()
+//                  .name(menu.getName())
+//                  .price(menu.getPrice())
+//                  .stock(menu.getStock())
+//                  .category(menu.getCategory())
+//                  .build();
+//    }
 }

@@ -16,7 +16,7 @@ dan secara otomatis nanti Objek/instance MenuRepository ini akan bisa di pakai o
 yang membutuhkan
 MenuRepository akan secara otomatis dibuat sebagai Bean (jadi bisa dipakai oleh semua objek/instance class lain)
  */
-public interface MenuRepository extends JpaRepository<Menu, UUID>, JpaSpecificationExecutor<Menu> {
+public interface MenuRepository extends JpaRepository<Menu, String>, JpaSpecificationExecutor<Menu> {
     List<Menu> findByNameIgnoreCase(String name); // JPA query methods
     // https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
     List<Menu> findByPrice(double price);

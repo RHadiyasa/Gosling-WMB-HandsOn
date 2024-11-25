@@ -34,7 +34,7 @@ public class MenuServiceImpl implements MenuService {
                 .price(menuRequest.getPrice())
                 .category(MenuCategory.fromValue(menuRequest.getCategory()))
                 .isAvailable(true)
-                .stock(0)
+                .stock(menuRequest.getStock())
                 .build();
         menuRepository.saveAndFlush(menu);
         return toMenuResponse(menu);
@@ -48,11 +48,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu getOne(String id) {
-        Optional<Menu> menu = menuRepository.findById(UUID.fromString(id));
-        if (menu.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu with id" + id + " not found");
-        }
-        return menu.get();
+        return menuRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
     }
 
 //    @Override
@@ -96,21 +93,19 @@ public class MenuServiceImpl implements MenuService {
         );
         Specification<Menu> menuSpecification = MenuSpecification.getSpecification(searchMenuRequest);
         Page<Menu> menusPage = menuRepository.findAll(menuSpecification, menuPageable);
-        return menusPage.map(menu -> toMenuResponse(menu));
+        return menusPage.map(this::toMenuResponse);
     }
 
     @Override
     public MenuResponse updateMenu(String id, MenuRequest menuRequest) {
         Menu currentMenu = getOne(id);
-        currentMenu.setId(UUID.fromString(id));
+        currentMenu.setId(id);
         currentMenu.setName(menuRequest.getName());
         currentMenu.setPrice(menuRequest.getPrice());
-//        currentMenu.setCategory(MenuCategory.valueOf(menuRequest.getCategory()));
-
-//        currentMenu.setCategory(MenuCategory.FOOD);
+        currentMenu.setStock(menuRequest.getStock());
         currentMenu.setCategory(MenuCategory.fromValue(menuRequest.getCategory()));
         menuRepository.save(currentMenu);
-        return MenuResponse.menuEntityToMenuResponse(currentMenu); // alternative dari toMenuResponse, dan bagusnya itu di setiap DTO atau di Mapper Util (karena ya biar service focus pada core business logicnya)
+        return toMenuResponse(currentMenu); // alternative dari toMenuResponse, dan bagusnya itu di setiap DTO atau di Mapper Util (karena ya biar service focus pada core business logicnya)
     }
 
     @Override
@@ -125,7 +120,8 @@ public class MenuServiceImpl implements MenuService {
         menuResponse.setId(String.valueOf(menu.getId()));
         menuResponse.setName(menu.getName());
         menuResponse.setPrice(menu.getPrice());
-        menuResponse.setCategory(menu.getCategory());
+        menuResponse.setStock(menu.getStock());
+        menuResponse.setCategory(menu.getCategory().toString());
         return menuResponse;
     }
 }
