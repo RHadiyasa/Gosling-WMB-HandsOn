@@ -5,6 +5,7 @@ public class Constant {
 
     public static final String MENU_TABLE = "m_menu";
     public static final String USER_TABLE = "m_user";
+    public static final String CART_TABLE = "t_cart";
 
 
     public static final String SUCCESS_CREATE_MENU = "Successfully created menu";
