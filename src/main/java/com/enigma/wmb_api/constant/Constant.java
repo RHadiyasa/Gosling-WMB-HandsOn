@@ -14,6 +14,8 @@ public class Constant {
     public static final String ORDER_DETAILS_TABLE = "t_order_details";
 
     public static final String USER_TABLE = "m_user";
+    public static final String ROLE_TABLE = "m_role";
+
     public static final String CART_TABLE = "t_cart";
     public static final String CART_ITEM_TABLE = "t_item_cart";
 

@@ -1,15 +1,12 @@
 package com.enigma.wmb_api.entity;
 
 import com.enigma.wmb_api.constant.Constant;
-import com.enigma.wmb_api.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = Constant.USER_TABLE)
@@ -18,7 +15,7 @@ import java.util.UUID;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity {
+public class UserAccount extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -29,13 +26,8 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 50)
-    private String name;
-
-    @Column(name = "phone_number", nullable = false, length = 17)
-    private String phoneNumber;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
+    private String role = "CUSTOMER";
+//    @ManyToOne
+//    @JoinColumn(name = "role_id")
+//    private Role role;
 }

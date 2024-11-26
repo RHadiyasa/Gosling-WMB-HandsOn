@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         return toOrderResponse(savedOrder);
     }
 
+    @Transactional
     @Override
     public OrderResponse addOrderDetails(String orderId, OrderDetailsRequest orderDetailsRequest) {
         // Mendapatkan order berdasarkan ID

@@ -8,7 +8,6 @@ import com.enigma.wmb_api.dto.response.OrderDetailsResponse;
 import com.enigma.wmb_api.dto.response.OrderResponse;
 import com.enigma.wmb_api.service.OrderService;
 import com.enigma.wmb_api.util.ResponseUtil;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

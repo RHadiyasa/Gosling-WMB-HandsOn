@@ -1,14 +1,18 @@
 package com.enigma.wmb_api.service.impl;
 
 import com.enigma.wmb_api.constant.UserRole;
-import com.enigma.wmb_api.dto.request.LoginRequest;
-import com.enigma.wmb_api.dto.request.RegisterRequest;
-import com.enigma.wmb_api.dto.response.AuthResponse;
-import com.enigma.wmb_api.entity.User;
+import com.enigma.wmb_api.dto.request.AuthRequest;
+import com.enigma.wmb_api.dto.response.LoginResponse;
+import com.enigma.wmb_api.dto.response.RegisterResponse;
+import com.enigma.wmb_api.entity.Role;
+import com.enigma.wmb_api.entity.UserAccount;
+import com.enigma.wmb_api.repository.RoleRepository;
 import com.enigma.wmb_api.repository.UserRepository;
 import com.enigma.wmb_api.service.AuthService;
+import com.enigma.wmb_api.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,26 +20,37 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
-        User user = User.builder()
+    public RegisterResponse register(AuthRequest request) {
+
+        if(userRepository.findByUsername(request.getUsername()).isPresent()){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+        }
+
+        UserAccount userAccount = UserAccount.builder()
                 .username(request.getUsername())
-                .password(request.getPassword())
-                .name(request.getName())
-                .phoneNumber(request.getPhoneNumber())
-                .role(UserRole.CUSTOMER)
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role("CUSTOMER")
                 .build();
-        userRepository.saveAndFlush(user);
-        return AuthResponse.builder().token(String.valueOf(user.getId())).build();
+
+        userRepository.saveAndFlush(userAccount);
+
+        return RegisterResponse.builder()
+                .username(userAccount.getUsername())
+                .role(userAccount.getRole())
+                .build();
     }
 
     @Override
-    public AuthResponse login(LoginRequest request) {
-        User user = userRepository.findByUsernameAndPassword(request.getUsername(), request.getPassword());
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
-        }
-        return AuthResponse.builder().token(String.valueOf(user.getId())).build();
+    public RegisterResponse registerAdmin(AuthRequest request) {
+        return null;
+    }
+
+    @Override
+    public LoginResponse login(AuthRequest request) {
+        return null;
     }
 }
