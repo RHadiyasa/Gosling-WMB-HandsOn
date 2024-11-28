@@ -25,5 +25,5 @@ public class Constant {
     public static final String SUCCESS_DELETE_MENU = "Successfully deleted the menu";
 
     public static final String SUCCESS_CUSTOMER_REGISTRATION = "Successfully register the customer account";
-    public static final String SUCCESS_CUSTOMER_LOGIN = "Successfully logged in";
+    public static final String SUCCESS_LOGIN = "Successfully logged in";
 }

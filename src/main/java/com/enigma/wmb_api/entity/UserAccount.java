@@ -1,12 +1,19 @@
 package com.enigma.wmb_api.entity;
 
 import com.enigma.wmb_api.constant.Constant;
+import com.enigma.wmb_api.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = Constant.USER_TABLE)
@@ -15,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAccount extends BaseEntity {
+public class UserAccount extends BaseEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -26,8 +33,13 @@ public class UserAccount extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    private String role = "CUSTOMER";
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private UserRole role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<UserRole> myRoles = List.of(role);
+        return myRoles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.name())).toList();
+    }
 }

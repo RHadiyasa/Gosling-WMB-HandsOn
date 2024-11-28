@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ResponseUtil {
     public static <T> ResponseEntity<CommonResponse<T>> buildResponse(HttpStatus status, String message, T data) {
-        CommonResponse<T> response = new CommonResponse<>(status.value(), message, data);
+        CommonResponse<T> response = new CommonResponse<>(status.value(), message, data, null);
         return ResponseEntity.status(status).body(response);
     }
 

@@ -1,11 +1,13 @@
 package com.enigma.wmb_api.constant;
 
+import lombok.Getter;
+
+@Getter
 public enum UserRole {
-    CUSTOMER("PELANGGAN"),
-    STAFF("KARYAWAN");
+    ROLE_CUSTOMER("PELANGGAN"),
+    ROLE_STAFF("KARYAWAN");
 
-
-    private String value;
+    private final String value;
 
     UserRole(String value) {
         this.value = value;
